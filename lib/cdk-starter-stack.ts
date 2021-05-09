@@ -52,6 +52,7 @@ export class CdkStarterStack extends cdk.Stack {
       keyName: 'ec2-key-pair',
     });
 
+    // 👇 create RDS Instance
     const dbInstance = new rds.DatabaseInstance(this, 'db-instance', {
       vpc,
       vpcSubnets: {
@@ -84,7 +85,7 @@ export class CdkStarterStack extends cdk.Stack {
       value: dbInstance.instanceEndpoint.hostname,
     });
 
-    new cdk.CfnOutput(this, 'secretPassword', {
+    new cdk.CfnOutput(this, 'secretName', {
       // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
       value: dbInstance.secret?.secretName!,
     });
