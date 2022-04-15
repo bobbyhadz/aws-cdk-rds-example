@@ -1,7 +1,9 @@
 # RDS Example in AWS CDK - Complete Guide
 
 A repository for an article on
-[bobbyhadz.com](https://bobbyhadz.com/blog/aws-cdk-rds-example) `<- Update Link`
+[bobbyhadz.com](https://bobbyhadz.com/blog/aws-cdk-rds-example) 
+
+> If you use CDK v1, switch to the cdk-v1 branch
 
 ## How to Use
 
@@ -18,7 +20,7 @@ npm install
 4. Create the CDK stack
 
 ```bash
-npx cdk deploy \
+npx aws-cdk deploy \
   --outputs-file ./cdk-outputs.json
 ```
 
@@ -28,5 +30,5 @@ npx cdk deploy \
 5. Cleanup
 
 ```bash
-npx cdk destroy
+npx aws-cdk destroy
 ```
