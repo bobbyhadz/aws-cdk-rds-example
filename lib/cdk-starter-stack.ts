@@ -18,7 +18,7 @@ export class CdkStarterStack extends cdk.Stack {
         },
         {
           name: 'isolated-subnet-1',
-          subnetType: ec2.SubnetType.ISOLATED,
+          subnetType: ec2.SubnetType.PRIVATE_ISOLATED,
           cidrMask: 28,
         },
       ],
@@ -56,10 +56,10 @@ export class CdkStarterStack extends cdk.Stack {
     const dbInstance = new rds.DatabaseInstance(this, 'db-instance', {
       vpc,
       vpcSubnets: {
-        subnetType: ec2.SubnetType.ISOLATED,
+        subnetType: ec2.SubnetType.PRIVATE_ISOLATED,
       },
       engine: rds.DatabaseInstanceEngine.postgres({
-        version: rds.PostgresEngineVersion.VER_13_1,
+        version: rds.PostgresEngineVersion.VER_14,
       }),
       instanceType: ec2.InstanceType.of(
         ec2.InstanceClass.BURSTABLE3,
