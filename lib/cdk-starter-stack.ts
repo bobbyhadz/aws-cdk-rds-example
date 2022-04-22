@@ -43,7 +43,7 @@ export class CdkStarterStack extends cdk.Stack {
       },
       securityGroup: ec2InstanceSG,
       instanceType: ec2.InstanceType.of(
-        ec2.InstanceClass.T2,
+        ec2.InstanceClass.BURSTABLE2,
         ec2.InstanceSize.MICRO,
       ),
       machineImage: new ec2.AmazonLinuxImage({
