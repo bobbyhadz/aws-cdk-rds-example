@@ -7,7 +7,7 @@ export class CdkStarterStack extends cdk.Stack {
     super(scope, id, props);
 
     const vpc = new ec2.Vpc(this, 'my-cdk-vpc', {
-      cidr: '10.0.0.0/16',
+      ipAddresses: ec2.IpAddresses.cidr('10.0.0.0/16'),
       natGateways: 0,
       maxAzs: 3,
       subnetConfiguration: [
@@ -35,6 +35,13 @@ export class CdkStarterStack extends cdk.Stack {
       'allow SSH connections from anywhere',
     );
 
+    // 👇️ Importing your SSH key
+    const keyPair = ec2.KeyPair.fromKeyPairName(
+      this,
+      'key-pair',
+      'ec2-key-pair',
+    );
+
     // 👇 create the EC2 instance
     const ec2Instance = new ec2.Instance(this, 'ec2-instance', {
       vpc,
@@ -49,7 +56,7 @@ export class CdkStarterStack extends cdk.Stack {
       machineImage: new ec2.AmazonLinuxImage({
         generation: ec2.AmazonLinuxGeneration.AMAZON_LINUX_2,
       }),
-      keyName: 'ec2-key-pair',
+      keyPair,
     });
 
     // 👇 create RDS Instance
@@ -68,7 +75,7 @@ export class CdkStarterStack extends cdk.Stack {
       credentials: rds.Credentials.fromGeneratedSecret('postgres'),
       multiAz: false,
       allocatedStorage: 100,
-      maxAllocatedStorage: 105,
+      maxAllocatedStorage: 120,
       allowMajorVersionUpgrade: false,
       autoMinorVersionUpgrade: true,
       backupRetention: cdk.Duration.days(0),
